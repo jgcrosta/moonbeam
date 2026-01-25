@@ -18,7 +18,7 @@ jobs:
       - name: Run Scout
         uses: coinfabrik/scout-actions@v3.2
         with:
-          target: .
+          working_directory: .
           scout_extra_args: "--filter known-vulnerabilities,avoid-panic-error"
           comment_pr: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
