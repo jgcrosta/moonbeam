@@ -20,5 +20,6 @@ jobs:
         with:
           working_directory: .
           scout_extra_args: "--filter known-vulnerabilities,avoid-panic-error"
+          verbose: true
           comment_pr: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
