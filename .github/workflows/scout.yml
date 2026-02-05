@@ -15,8 +15,26 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Debug Environment Info
+        run: |
+          echo "=== System Info ==="
+          uname -a
+          echo ""
+          echo "=== Rust Toolchain File ==="
+          cat rust-toolchain || echo "No rust-toolchain file found"
+          echo ""
+          echo "=== Available disk space ==="
+          df -h
+          echo ""
+          echo "=== Memory info ==="
+          free -h || true
+
       - name: Run Scout
         uses: coinfabrik/scout-actions@v3.2
+        env:
+          ACTIONS_STEP_DEBUG: true
+          CARGO_TERM_VERBOSE: true
+          RUST_BACKTRACE: full
         with:
           working_directory: .
           scout_extra_args: "--filter known-vulnerabilities,avoid-panic-error"
