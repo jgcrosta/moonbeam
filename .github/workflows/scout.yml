@@ -30,10 +30,14 @@ jobs:
           free -h || true
 
       - name: Run Scout
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y protobuf-compiler clang libclang-dev
-          cargo install cargo-scout-audit
-          cargo scout-audit --filter known-vulnerabilities,avoid-panic-error
+        uses: coinfabrik/scout-actions@v3.2
         env:
+          ACTIONS_STEP_DEBUG: true
+          CARGO_TERM_VERBOSE: true
           RUST_BACKTRACE: full
+        with:
+          working_directory: .
+          scout_extra_args: "--filter known-vulnerabilities,avoid-panic-error"
+          verbose: true
+          comment_pr: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
